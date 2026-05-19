@@ -5,14 +5,21 @@ In this space I use it for my studies, but I will also share some projects with 
 
 <img src="https://www.alura.com.br/artigos/assets/como-criar-um-readme-para-seu-perfil-github/imagem14.gif" height="160px" width="160px" />
 
+<!-- 
  <div>🙌🏻 ✨🅳🆄🅷🆅🅸🅻🅴🅻🅰 |🧑‍💻♡ #🅘🅣 | #🅢🅤🅟🅟🅞🅡🅣 | #🅓🅔🅥 |</div>
  <div>🚀 ✨🌟A persistência realiza o impossível 🌟✨</div>
  <p></p>
-
+ -->
+  <div>🙌🏻 ✨🅳🆄🅷🆅🅸🅻🅴🅻🅰 |🧑‍💻♡ #🅘🅣 | #🅓🅔🅥 |</div>
+ <div>🚀 ✨🌟A persistência realiza o impossível 🌟✨</div>
+ <p></p>
+ 
+<!-- 
 <div style="display: inline_block">
 <a href="https://github.com/duvilela"><img height="145em" src="https://github-readme-stats.vercel.app/api/top-langs/?username=duvilela&layout=compact&langs_count=16&theme=dracula" /></a>
 <a href="https://github.com/duvilela"><img height="145em" src="https://github-readme-stats.vercel.app/api?username=duvilela&show_icons=true&theme=dracula&hide=contribs,prs" /></a>
 </div>
+-->
 
 <!-- 
 <div style="display: inline_block">
@@ -23,7 +30,6 @@ In this space I use it for my studies, but I will also share some projects with 
 
 
 <div style="display: inline_block"></br>
-
 <img align="center" alt="Du-NodeJS" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg" />
 <img align="center" alt="Du-React" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg" />
 <img align="center" alt="Du-JS" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-plain.svg" />
@@ -44,7 +50,6 @@ In this space I use it for my studies, but I will also share some projects with 
 <img align="center" alt="Du-C" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/c/c-original.svg" />
 <img align="center" alt="Du-C#" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/csharp/csharp-original.svg" />
 <img align="center" alt="Du-Java" height="30" width="40" src="https://raw.githubusercontent.com/devicons/devicon/master/icons/java/java-original.svg" />
-
 <div>
 <p></p>
  
