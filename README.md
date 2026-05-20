@@ -10,7 +10,7 @@ In this space I use it for my studies, but I will also share some projects with 
  <div>🚀 ✨🌟A persistência realiza o impossível 🌟✨</div>
  <p></p>
  -->
-  <div>🙌🏻 ✨🅳🆄🅷🆅🅸🅻🅴🅻🅰 |🧑‍💻♡ #🅘🅣 | #🅓🅔🅥 |</div>
+  <div>🙌🏻 ✨|🧑‍💻♡ #🅘🅣 | #🅓🅔🅥 |</div>
  <div>🚀 ✨🌟A persistência realiza o impossível 🌟✨</div>
  <p></p>
  
