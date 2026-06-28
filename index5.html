@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>duvilela | Portfólio de Projetos Web</title>
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-color: #0b0c10;
+            --surface: #12141c;
+            --surface-hover: #191c27;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border-color: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(255, 255, 255, 0.12);
+            --accent: #6366f1; /* Premium Indigo */
+            --accent-glow: rgba(99, 102, 241, 0.15);
+            --accent-glow-strong: rgba(99, 102, 241, 0.4);
+            --accent-blue: #0ea5e9; /* Sky Blue */
+            --font-display: 'Plus Jakarta Sans', sans-serif;
+            --font-sans: 'Inter', sans-serif;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.6);
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.05) 0px, transparent 50%),
+                radial-gradient(at 50% 0%, rgba(14, 165, 233, 0.05) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.05) 0px, transparent 50%),
+                linear-gradient(rgba(255, 255, 255, 0.003) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.003) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-top: 72px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Loading Bar */
+        .loading-bar {
+            position: fixed;
+            top: 72px;
+            left: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-blue));
+            width: 0%;
+            z-index: 1001;
+            transition: width 0.3s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+        .loading-bar.loading { opacity: 1; width: 70%; }
+        .loading-bar.loaded { width: 100%; opacity: 0; }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 72px;
+            z-index: 1000;
+            background: rgba(11, 12, 16, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-container {
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.15rem;
+            letter-spacing: -0.02em;
+            transition: var(--transition);
+        }
+
+        .nav-brand:hover {
+            opacity: 0.9;
+            transform: scale(0.98);
+        }
+
+        .brand-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--accent), var(--accent-blue));
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .nav-status {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            padding: 0.4rem 1rem;
+            border-radius: 9999px;
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            letter-spacing: 0.02em;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #10b981; /* Emerald green active */
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.8);
+            animation: pulse-green 2s infinite;
+        }
+
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+
+        .nav-right {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .nav-btn, .nav-link {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--text-secondary);
+            font-family: var(--font-sans);
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.45rem 1rem;
+            border-radius: 8px;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .nav-btn:hover, .nav-link:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.03);
+            border-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-btn.active {
+            color: #ffffff;
+            background: var(--accent-glow);
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.1);
+        }
+
+        /* Hub Container */
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 4.5rem 2rem;
+        }
+
+        .header-section {
+            margin-bottom: 3rem;
+        }
+
+        .header-section h1 {
+            font-family: var(--font-display);
+            font-size: 2.25rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(135deg, #ffffff 30%, #a5b4fc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-section p {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            max-width: 620px;
+            line-height: 1.6;
+        }
+
+        /* Cards Grid */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .clean-card {
+            background: linear-gradient(180deg, var(--surface) 0%, rgba(18, 20, 28, 0.7) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* Ambient light effect on card hover */
+        .clean-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.08) 0%, transparent 60%);
+            opacity: 0;
+            transition: var(--transition);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .clean-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(99, 102, 241, 0.35);
+            box-shadow: var(--shadow-lg), 0 0 20px rgba(99, 102, 241, 0.1);
+        }
+
+        .clean-card:hover::after {
+            opacity: 1;
+        }
+
+        .card-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            z-index: 2;
+        }
+
+        .clean-card:hover .card-icon {
+            background: var(--accent);
+            color: #ffffff;
+            border-color: var(--accent);
+            box-shadow: 0 4px 12px var(--accent-glow-strong);
+        }
+
+        .clean-card h2 {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            color: var(--text-primary);
+            z-index: 2;
+        }
+
+        .clean-card p {
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+            line-height: 1.55;
+            flex-grow: 1;
+            z-index: 2;
+        }
+
+        .tags-container {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 0.25rem;
+            z-index: 2;
+        }
+
+        .clean-tag {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 0.25rem 0.60rem;
+            border-radius: 6px;
+            transition: var(--transition);
+        }
+
+        .clean-card:hover .clean-tag {
+            border-color: rgba(99, 102, 241, 0.15);
+            background: rgba(99, 102, 241, 0.05);
+            color: var(--text-primary);
+        }
+
+        .card-arrow {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            color: var(--text-muted);
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: var(--transition);
+            font-size: 0.9rem;
+            z-index: 2;
+        }
+
+        .clean-card:hover .card-arrow {
+            opacity: 1;
+            transform: translateX(0);
+            color: var(--accent-blue);
+        }
+
+        /* Iframe View CSS */
+        #iframe-view {
+            position: fixed;
+            top: 72px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: calc(100vh - 72px);
+            background: var(--bg-color);
+            display: none;
+            opacity: 0;
+            z-index: 10;
+            transition: opacity 0.3s ease;
+        }
+
+        #project-iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #ffffff;
+        }
+
+        .fade-out {
+            opacity: 0 !important;
+            pointer-events: none;
+        }
+        
+        .fade-in {
+            opacity: 1 !important;
+        }
+        
+        #hub-view {
+            transition: opacity 0.3s ease;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 5rem;
+            padding-top: 2.5rem;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        footer a:hover {
+            color: var(--accent-blue);
+        }
+
+        @media (max-width: 768px) {
+            .header-section h1 { font-size: 1.85rem; }
+            .nav-link span, .nav-btn span { display: none; }
+            .nav-status { display: none; }
+            .container { padding: 3rem 1.25rem; }
+            .cards { grid-template-columns: 1fr; }
+        }
+
+        /* Theme Selector Modal */
+        .theme-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .theme-modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+        .theme-modal-content {
+            background: #18181b;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            max-width: 680px;
+            width: 90%;
+            padding: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            color: #fafafa;
+            text-align: left;
+        }
+        .theme-modal-overlay.active .theme-modal-content {
+            transform: translateY(0);
+        }
+        .theme-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 1rem;
+        }
+        .theme-modal-header h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: #ffffff;
+        }
+        .theme-modal-close-btn {
+            background: transparent;
+            border: none;
+            color: #a1a1aa;
+            font-size: 1.8rem;
+            cursor: pointer;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+        .theme-modal-close-btn:hover {
+            color: #ffffff;
+        }
+        .theme-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1rem;
+            max-height: 400px;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+        }
+        .theme-grid::-webkit-scrollbar {
+            width: 6px;
+        }
+        .theme-grid::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .theme-grid::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 999px;
+        }
+        .theme-option-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            padding: 1.25rem;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .theme-option-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+        .theme-option-card.current {
+            border-color: #3b82f6;
+            background: rgba(59, 130, 246, 0.05);
+        }
+        .theme-preview-glow {
+            position: absolute;
+            top: 0; right: 0;
+            width: 60px; height: 60px;
+            filter: blur(25px);
+            opacity: 0.15;
+            pointer-events: none;
+            transition: opacity 0.2s;
+        }
+        .theme-option-card:hover .theme-preview-glow {
+            opacity: 0.3;
+        }
+        .theme-option-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 0.2rem;
+        }
+        .theme-option-card p {
+            font-size: 0.8rem;
+            color: #a1a1aa;
+            line-height: 1.4;
+        }
+        .theme-badge {
+            align-self: flex-start;
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.15rem 0.45rem;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #d4d4d8;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .theme-option-card.current .theme-badge {
+            background: rgba(59, 130, 246, 0.15);
+            color: #60a5fa;
+            border-color: rgba(59, 130, 246, 0.25);
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Loading Indicator -->
+    <div class="loading-bar" id="loading-bar"></div>
+
+    <!-- Fixed Header / Navbar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-brand" id="nav-brand">
+                <div class="brand-avatar">D</div>
+                <span>Duvilela</span>
+            </a>
+            
+            <div class="nav-status" id="nav-status">
+                <div class="status-dot"></div>
+                <span class="status-text">Visualizando</span>
+            </div>
+
+            <div class="nav-right">
+                <button class="nav-btn active" id="btn-home">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>Projetos</span>
+                </button>
+                <button class="nav-btn" id="btn-extensions" title="Extensões Chrome">
+                    <i class="fa-brands fa-chrome"></i>
+                    <span>Extensões Chrome</span>
+                </button>
+                <button class="nav-btn" id="btn-apps" title="Aplicativos Web">
+                    <i class="fa-solid fa-rocket"></i>
+                    <span>Aplicativos</span>
+                </button>
+                <button class="nav-btn" id="btn-theme-switcher" title="Trocar Tema">
+                    <i class="fa-solid fa-palette"></i>
+                    <span>Temas</span>
+                </button>
+                <!-- <a href="https://github.com/duvilela" target="_blank" class="nav-link">
+                    <i class="fa-brands fa-github"></i>
+                    <span>GitHub</span>
+                </a> -->
+            </div>
+        </div>
+    </nav>
+
+    <!-- PORTFOLIO HUB -->
+    <main class="container" id="hub-view">
+        <div class="header-section">
+            <h1>Projetos & Portfólio</h1>
+            <p>Navegue por landing pages, projetos web e experimentos de interface desenvolvidos com foco em performance e design.</p>
+        </div>
+
+        <div class="cards">
+            <!-- Card 1: Portfólio Hub -->
+            <a href="https://duvilela.github.io/hub/index.html" class="card" style="--card-color: #3b82f6; --card-color-glow: rgba(59, 130, 246, 0.15);">
+                <div class="card-icon"><i class="fa-solid fa-layer-group"></i></div>
+                <h2>Portfólio Hub</h2>
+                <p>Coleção completa de landing pages e templates web com design responsivo. Temas esportivos, corporativos e e-commerce.</p>
+                <div class="card-tags">
+                    <span class="tag">Landing Pages</span>
+                    <span class="tag">Portfólio</span>
+                    <span class="tag">UI/UX</span>
+                </div>
+                <span class="card-arrow">→</span>
+            </a>
+
+            <!-- Card 2: Extensões Chrome -->
+            <a href="https://duvilela.github.io/dev-chrome/index.html" class="card" style="--card-color: #4285f4; --card-color-glow: rgba(66, 133, 244, 0.15);">
+                <div class="card-icon"><i class="fa-brands fa-chrome"></i></div>
+                <h2>Extensões Chrome</h2>
+                <p>Coleção de extensões úteis para o Google Chrome. Utilitários de produtividade, automação de tarefas e dev tools.</p>
+                <div class="card-tags">
+                    <span class="tag">Chrome</span>
+                    <span class="tag">Extensões</span>
+                    <span class="tag">Produtividade</span>
+                </div>
+                <span class="card-arrow">→</span>
+            </a>
+
+            <!-- Card 3: Aplicativos -->
+            <a href="https://duvilela.github.io/apps/index.html" class="card" style="--card-color: #a855f7; --card-color-glow: rgba(168, 85, 247, 0.15);">
+                <div class="card-icon"><i class="fa-solid fa-rocket"></i></div>
+                <h2>Aplicativos Web</h2>
+                <p>Painéis de controle de banca e cálculo matemático. BetAnalytix para gestão de lucros e surecalc para arbitragem.</p>
+                <div class="card-tags">
+                    <span class="tag">Gestão</span>
+                    <span class="tag">Estatísticas</span>
+                    <span class="tag">SureCalc</span>
+                </div>
+                <span class="card-arrow">→</span>
+            </a>
+
+        </div>
+
+        <footer>
+            <p>&copy; 2026 Duvilela. Desenvolvido com foco em UI/UX.<!-- | <a href="https://github.com/duvilela" target="_blank">GitHub</a>--></p>
+        </footer>
+    </main>
+
+    <!-- SUB-PROJECT IFRAME (SPA CONTAINER) -->
+    <div id="iframe-view">
+        <iframe id="project-iframe" src="about:blank"></iframe>
+    </div>
+
+    <!-- Theme Selector Modal -->
+    <div id="theme-modal" class="theme-modal-overlay">
+        <div class="theme-modal-content">
+            <div class="theme-modal-header">
+                <h2>Selecione um Tema para o Hub</h2>
+                <button id="theme-modal-close" class="theme-modal-close-btn">&times;</button>
+            </div>
+            <div class="theme-grid">
+                <!-- Theme 1 (Modern Creative - now index.html) -->
+                <a href="index.html" class="theme-option-card" id="theme-card-1">
+                    <div class="theme-preview-glow" style="background: linear-gradient(135deg, #8b5cf6, #06b6d4);"></div>
+                    <h3>Modern Creative</h3>
+                    <p>Vidro fosco (glassmorphism) com tons roxo e ciano.</p>
+                    <span class="theme-badge">Futurista (Principal)</span>
+                </a>
+                <!-- Theme 2 (Original Hub - now index2.html) -->
+                <a href="index2.html" class="theme-option-card" id="theme-card-2">
+                    <div class="theme-preview-glow" style="background: linear-gradient(135deg, #22c55e, #06b6d4);"></div>
+                    <h3>Original Hub</h3>
+                    <p>Retro-Modern Dark com brilhos verde/ciano e emojis.</p>
+                    <span class="theme-badge">Original</span>
+                </a>
+                <!-- Theme 3 -->
+                <a href="index3.html" class="theme-option-card" id="theme-card-3">
+                    <div class="theme-preview-glow" style="background: linear-gradient(135deg, #3b82f6, #09090b);"></div>
+                    <h3>Cyberpunk AI</h3>
+                    <p>Tema de inteligência artificial com grade e neon azul.</p>
+                    <span class="theme-badge">Tecnológico</span>
+                </a>
+                <!-- Theme 4 -->
+                <a href="index4.html" class="theme-option-card" id="theme-card-4">
+                    <div class="theme-preview-glow" style="background: linear-gradient(135deg, #2563eb, #eff6ff);"></div>
+                    <h3>Clean Light</h3>
+                    <p>Design corporativo, minimalista e profissional em modo claro.</p>
+                    <span class="theme-badge">Corporativo</span>
+                </a>
+                <!-- Theme 5 -->
+                <a href="index5.html" class="theme-option-card current" id="theme-card-5">
+                    <div class="theme-preview-glow" style="background: linear-gradient(135deg, #6366f1, #0ea5e9);"></div>
+                    <h3>Premium Dark</h3>
+                    <p>Visual executivo em titânio e aço com acentos índigo.</p>
+                    <span class="theme-badge">Premium</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- SPA logic -->
+    <script>
+        const hubView = document.getElementById('hub-view');
+        const iframeView = document.getElementById('iframe-view');
+        const iframeEl = document.getElementById('project-iframe');
+        const btnHome = document.getElementById('btn-home');
+        const navBrand = document.getElementById('nav-brand');
+        const navStatus = document.getElementById('nav-status');
+        const statusText = navStatus.querySelector('.status-text');
+        const loadingBar = document.getElementById('loading-bar');
+
+        // Initial state
+        history.replaceState({view: 'hub'}, '', window.location.pathname);
+
+        function openProject(url, title, pushState = true) {
+            loadingBar.className = 'loading-bar loading';
+            
+            iframeEl.src = url;
+            iframeView.style.display = 'block';
+            hubView.classList.add('fade-out');
+            
+            setTimeout(() => {
+                hubView.style.display = 'none';
+                iframeView.classList.add('fade-in');
+                
+                statusText.textContent = title;
+                navStatus.style.display = 'flex';
+                
+                btnHome.classList.remove('active');
+                const btnExtensions = document.getElementById('btn-extensions');
+                if (btnExtensions) {
+                    if (title === 'Extensões Chrome') {
+                        btnExtensions.classList.add('active');
+                    } else {
+                        btnExtensions.classList.remove('active');
+                    }
+                }
+                
+                if (pushState) {
+                    const hash = '#' + encodeURIComponent(title.toLowerCase().trim().replace(/\s+/g, '-'));
+                    history.pushState({view: 'project', url: url, title: title}, '', hash);
+                }
+            }, 300);
+        }
+
+        function showHome(e, pushState = true) {
+            if (e) e.preventDefault();
+            
+            if (iframeView.style.display === 'none' || !iframeView.style.display) return;
+            
+            loadingBar.className = 'loading-bar';
+            iframeView.classList.remove('fade-in');
+            iframeView.classList.add('fade-out');
+            
+            setTimeout(() => {
+                iframeView.style.display = 'none';
+                iframeView.classList.remove('fade-out');
+                iframeEl.src = 'about:blank';
+                
+                hubView.style.display = 'block';
+                setTimeout(() => {
+                    hubView.classList.remove('fade-out');
+                }, 50);
+                
+                navStatus.style.display = 'none';
+                btnHome.classList.add('active');
+                const btnExtensions = document.getElementById('btn-extensions');
+                if (btnExtensions) btnExtensions.classList.remove('active');
+                
+                if (pushState) {
+                    history.pushState({view: 'hub'}, '', window.location.pathname);
+                }
+            }, 300);
+        }
+
+        iframeEl.onload = function() {
+            loadingBar.className = 'loading-bar loaded';
+            setTimeout(() => {
+                loadingBar.className = 'loading-bar';
+            }, 300);
+        };
+
+        document.querySelectorAll('.clean-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                const url = this.getAttribute('href');
+                if (url.startsWith('http')) return;
+                e.preventDefault();
+                const title = this.querySelector('h2').textContent;
+                openProject(url, title);
+            });
+        });
+
+        btnHome.addEventListener('click', e => showHome(e));
+        const btnExtensions = document.getElementById('btn-extensions');
+        if (btnExtensions) {
+            btnExtensions.addEventListener('click', function(e) {
+                window.location.href = 'https://duvilela.github.io/dev-chrome/';
+            });
+        }
+        const btnApps = document.getElementById('btn-apps');
+        if (btnApps) {
+            btnApps.addEventListener('click', function(e) {
+                window.location.href = 'https://duvilela.github.io/apps/index.html';
+            });
+        }
+        navBrand.addEventListener('click', e => showHome(e));
+
+        window.addEventListener('popstate', function(e) {
+            if (e.state && e.state.view === 'project') {
+                openProject(e.state.url, e.state.title, false);
+            } else {
+                showHome(null, false);
+            }
+        });
+
+        // Theme Switcher Logic
+        const themeModal = document.getElementById('theme-modal');
+        const btnThemeSwitcher = document.getElementById('btn-theme-switcher');
+        const brandAvatar = document.querySelector('.brand-avatar');
+        const themeModalClose = document.getElementById('theme-modal-close');
+
+        function openThemeModal(e) {
+            if (e) e.preventDefault();
+            themeModal.style.display = 'flex';
+            setTimeout(() => {
+                themeModal.classList.add('active');
+            }, 10);
+        }
+
+        function closeThemeModal() {
+            themeModal.classList.remove('active');
+            setTimeout(() => {
+                themeModal.style.display = 'none';
+            }, 300);
+        }
+
+        if (btnThemeSwitcher) btnThemeSwitcher.addEventListener('click', openThemeModal);
+        if (brandAvatar) {
+            brandAvatar.style.cursor = 'pointer';
+            brandAvatar.addEventListener('click', openThemeModal);
+        }
+        if (themeModalClose) themeModalClose.addEventListener('click', closeThemeModal);
+        
+        themeModal.addEventListener('click', function(e) {
+            if (e.target === themeModal) {
+                closeThemeModal();
+            }
+        });
+    </script>
+</body>
+</html>
