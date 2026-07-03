@@ -1,4 +1,3 @@
-
 #### Hi there / Olá, Tudo bem?  👋  ✨Seja bem vindo ao meu Git
 Neste espaço eu uso para os meus estudos, mas também irei compartilhar alguns projetos com vocês...<br/>
 In this space I use it for my studies, but I will also share some projects with you...
