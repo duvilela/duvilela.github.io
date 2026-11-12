@@ -17,6 +17,13 @@ In this space I use it for my studies, but I will also share some projects with 
   <div>🙌🏻 ✨|🧑‍💻♡ #🅘🅣 | #🅓🅔🅥 |</div>
  <div>🚀 ✨🌟A persistência realiza o impossível 🌟✨</div>
  <p></p>
+
+<div>
+  <a href="https://duvilela.github.io/" target="_blank">
+    <img src="https://img.shields.io/badge/Portf%C3%B3lio_%26_Projetos-duvilela.github.io-6366f1?style=for-the-badge&logo=githubpages&logoColor=white" alt="Portfólio - duvilela.github.io" />
+  </a>
+</div>
+<p></p>
  
 <!-- 
 <div style="display: inline_block">
